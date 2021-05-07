@@ -21,14 +21,64 @@ string read_string()
 	return string();
 }
 
-string read_numberFromFile(string path, int offset, int size, bool isLE)
+string read_numberFromFile(string path, int offset, int bytes, bool isLE)
 {
-	return string();
+	string res;
+
+	char* temp;
+	ifstream inFile;
+	inFile.open(path, ios::binary);								// mở file
+
+	if (invalidOffset(path, offset, bytes * 2)) return "";		// nếu offset và số byte đọc ko hợp lệ, trả về rỗng
+
+	inFile.seekg(offset);							// nhảy tới vị trí offset
+
+	temp = new char[bytes * 2];
+	inFile.read(temp, bytes * 2);						        // đọc vào biến tạm temp
+
+	inFile.close();												// đóng file
+
+	res = temp;
+	res.resize(bytes * 2);
+
+	if (isLE) reverse(res.begin(), res.end());					// nếu LE thì đảo chuỗi
+	
+	return res;
 }
 
-string read_stringFromFile(string path, int offset, int size, bool isLE, bool isUTF16)
+string read_stringFromFile(string path, int offset, int length, bool isLE, bool isUTF16)
 {
-	return string();
+		
+	int bytes;												// số byte sẽ được đọc 
+	if (isUTF16) bytes = length * 2;						// 1 ký tự = 2 byte (UTF16)
+	else bytes = length;									// 1 ký tự = 1 byte (ASCII)
+	string res;
+	char* temp;
+	ifstream inFile;
+
+	inFile.open(path, ios::binary);							// mở file
+
+	if (invalidOffset(path, offset, bytes * 2)) return "";	// nếu offset và số byte đọc ko hợp lệ, trả về rỗng
+
+	inFile.seekg(offset, inFile.beg);						// nhảy tới vị trí offset
+
+	temp = new char[bytes * 2];				
+	inFile.read(temp, bytes * 2);							// đọc vào biến tạm temp
+
+	inFile.close();											// đóng file
+	
+	res = temp;
+	res.resize(bytes*2);					
+
+	if(isUTF16 && isLE)										// nếu là UTF16 và lưu ở dạng LE
+	{
+		for (int i = 0; i < res.length() - 3; i += 4)		
+		{
+			swap(res[i], res[i + 2]);
+			swap(res[i + 1], res[i + 3]);
+		}
+	}
+	return res;
 }
 
 void writeMenu()
@@ -175,7 +225,14 @@ bool isInteger(string input)
 
 bool invalidOffset(string path, int offset, int size)
 {
-	return false;
+	bool ret = false;
+	fstream file;
+	file.open(path, ios::binary | ios::in);
+	file.seekg(0, file.end);
+	if (offset + size > file.tellg()) ret = true;
+	file.seekg(0);
+	file.close();
+	return ret;
 }
 
 string write_excessK()
@@ -198,12 +255,35 @@ string write_string()
 	return string();
 }
 
-void write_numberToFile(string path, string res, bool isLE)
+void write_numberToFile(string path, string number, bool isLE)
 {
+	string res = number;
+	if (isLE) reverse(res.begin(), res.end());			// nếu là LE thì đảo chuỗi
+	const char* temp = res.c_str();
+
+	fstream outFile;
+	outFile.open(path, ios::binary | ios::out | ios::app);
+	outFile.write(temp, res.length());
+	outFile.close();
 }
 
-void write_stringToFile(string path, string res, bool isLE, bool isUTF16)
+void write_stringToFile(string path, string str, bool isLE, bool isUTF16)
 {
+	string res = str;
+	if (isUTF16 && isLE)								// nếu là UTF16 và lưu dạng LE
+	{
+		for (int i = 0; i < res.length() - 3; i += 4)
+		{
+			swap(res[i], res[i + 2]);
+			swap(res[i + 1], res[i + 3]);
+		}
+	}
+	const char* temp = res.c_str();
+
+	fstream outFile;
+	outFile.open(path, ios::binary | ios::out | ios::app);
+	outFile.write(temp, res.length());
+	outFile.close();
 }
 
 
@@ -248,4 +328,11 @@ int getNum(char ch)
 {
 	if (ch >= 'A') return (int)ch - 55;
 	else return (int)ch - '0';
+}
+
+void swap(char& a, char& b)
+{
+	char temp = a;
+	a = b;
+	b = temp;
 }
