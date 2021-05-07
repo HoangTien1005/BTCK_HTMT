@@ -3,8 +3,8 @@
 
 int main()
 {
-    writeMenu();
-    return 0;
+	/*writeMenu();
+	return 0;*/
+
 }
 
-    
