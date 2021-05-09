@@ -47,11 +47,19 @@ string read_precision()
 	string hex_number = read_numberFromFile(PATH, offset, bytes, isLE);
 	string number = decToBase(to_string(baseToDec(hex_number, 16)), 2, bytes * 8 );
 	if (number[0] == '1') res += '-';
-	exponent = baseToDec(number.substr(1, 8), 2) - 127;
-	mantisa = number.substr(9);
+	if (isSingle)
+	{
+		exponent = baseToDec(number.substr(1, 8), 2) - 127;
+		mantisa = number.substr(9);
+	}
+	else
+	{
+		exponent = baseToDec(number.substr(1, 11), 2) - 1023;
+		mantisa = number.substr(12);
+	}
 	if (exponent >= 0)
 	{
-		if (exponent > 32) return "overflow";
+		if ((isSingle && exponent > 32) || (!isSingle && exponent > 64)) return "overflow";
 		string head = mantisa.substr(0, exponent);
 		head += '.';
 		string tail = mantisa.substr(exponent);
