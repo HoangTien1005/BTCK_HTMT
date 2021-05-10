@@ -22,10 +22,10 @@ bool Ncheck(string str, int N);							//kiểm tra xem N byte có thể biểu d
 
 
 // NHÓM HÀM XỬ LÝ GHI (từ input của user chuyển thành hex rồi ghi ra file)
-string write_excessK(string str, int N, int K);			//str là chuỗi số nguyên, N là số byte, K là số quá K (trả về chuỗi hex)
-string write_twosComplement(string str, int N);			//str là chuỗi số nguyên, N là số byte (trả về chuỗi hex)
+string write_excessK();					
+string write_twosComplement();			
 string write_precision();
-string write_string(string str, bool isUTF16 = false);	//str là chuỗi kí tự ASCII hoặc UTF-16 (trả về chuỗi hex)
+string write_string();	
 
 // ghi số ra file theo LE hoặc BE
 void write_numberToFile(string path, string number, bool isLE = false);
@@ -37,10 +37,10 @@ void write_stringToFile(string path, string str, bool isLE = false, bool isUTF16
 
 // NHÓM HÀM XỬ LÝ ĐỌC ( đọc theo yêu cầu của user từ file rồi xuất ra màn hình)
 
-string read_excessK(string str, int N, int K);			//str là chuỗi hex vừa đọc được từ file, N là số byte của chuỗi hex, K là số quá K (trả về chuỗi số nguyên)
-string read_twosComplement(string str, int N);			//str là chuỗi hex vừa đọc được từ file, N là số byte của chuỗi hex (trả về chuỗi số nguyên)
+string read_excessK();			
+string read_twosComplement();			
 string read_precision();
-string read_string(string str, bool isUTF16 = false);	//str là chuỗi hex vừa đọc được từ file (trả về chuỗi kí tự ASCII hoặc UTF-16)
+string read_string();	
 
 // đọc một số theo LE hoặc BE ( size là số byte )
 string read_numberFromFile(string path, int offset, int bytes, bool isLE = false);
@@ -56,16 +56,14 @@ void readMenu();										// menu để đọc
 bool subMenu();											// menu để thoát khỏi chương trình
 bool endiannessMenu();									// menu để chọn LE và BE
 
-
-
-// NHÓM HÀM XỬ LÝ PHỤ (còn thiếu)
+// NHÓM HÀM XỬ LÝ PHỤ 
 
 string decToBase(string s, int base, int N);			// chuyển đổi từ thập phân sang base và phải đủ độ dài N
-long long int baseToDec(string s, int base);						// trả về giá trị thập phân của một base 
+unsigned __int64 baseToDec(string s, int base);			// trả về giá trị thập phân của một base 
 char getChar(int number);
 int getNum(char ch);
 void swap(char& a, char& b);
 
 string toBin(string x);
-float toDec(string X, int base);
+double toDec(string X, int base);
 #endif
