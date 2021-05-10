@@ -105,7 +105,6 @@ string read_numberFromFile(string path, int offset, int bytes, bool isLE)
 	res = temp;
 	res.resize(bytes * 2);
 
-	
 	if (isLE)												// nếu LE thì đảo chuỗi
 	{
 		string after = "";
@@ -117,6 +116,7 @@ string read_numberFromFile(string path, int offset, int bytes, bool isLE)
 		}
 		return after;
 	}
+
 	
 	return res;
 }
@@ -419,6 +419,7 @@ void write_numberToFile(string path, string number, bool isLE)
 		}
 		res = after;
 	}
+
 	const char* temp = res.c_str();
 
 	fstream outFile;
@@ -496,6 +497,7 @@ void swap(char& a, char& b)
 	a = b;
 	b = temp;
 }
+
 
 string toBin(string x)
 //input : 1 so nguyen dang string
