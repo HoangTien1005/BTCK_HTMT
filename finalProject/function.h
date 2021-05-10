@@ -58,8 +58,11 @@ bool endiannessMenu();									// menu để chọn LE và BE
 // NHÓM HÀM XỬ LÝ PHỤ (còn thiếu)
 
 string decToBase(string s, int base, int N);			// chuyển đổi từ thập phân sang base và phải đủ độ dài N
-int baseToDec(string s, int base);						// trả về giá trị thập phân của một base 
+long long int baseToDec(string s, int base);						// trả về giá trị thập phân của một base 
 char getChar(int number);
 int getNum(char ch);
 void swap(char& a, char& b);
+
+string toBin(string x);
+float toDec(string X, int base);
 #endif
