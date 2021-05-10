@@ -62,6 +62,7 @@ long long int baseToDec(string s, int base);						// trả về giá trị thậ
 char getChar(int number);
 int getNum(char ch);
 void swap(char& a, char& b);
+
 string toBin(string x);
 float toDec(string X, int base);
 #endif
