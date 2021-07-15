@@ -1,24 +1,17 @@
-# BTCK_HTMT
+# Đồ án cuối kỳ môn Hệ thống máy tính
 
-* Một vài lưu ý:
+Project 1: chương trình C tạo và lưu nối tiếp vào một file nhị phân các dữ liệu mà người dùng
+lựa chọn trong danh sách:
+• Số nguyên quá K kích thước N byte LE hoặc BE
+• Số nguyên bù 2 kích thước N byte LE hoặc BE
+• Số thực chấm động 4 / 8 byte LE hoặc BE
+• Chuỗi ký tự ASCII / UTF16 LE hoặc BE
+Sau đó chương trình cho phép thực hiện chức năng ngược lại: Đọc 1 trong những loại dữ liệu trên
+tại một offset nào đó trên file & hiển thị kết quả.
 
-1. Cách chương trình chạy:
-- Đầu tiên writeMenu sẽ xuất hiện => cho phép người dùng chọn 1 trong 5 chức năng => người dùng nhập số thập phân => mình sẽ tính toán ra một chuỗi hex,
-sau đó cho người dùng chọn kiểu lưu trữ LE hoặc BE => ghi ra file
-
-- Tương tự với readMenu, cho phép người dùng chọn 1 trong 5 chức năng => nhập offset (nhập thêm độ dài chuỗi nếu là đọc chuỗi) => đọc từ file để trả về một 
-chuỗi => lấy chuỗi vừa đọc để tính toán ra giá trị thập phân => xuất ra màn hình chuỗi hex của giá trị vừa tìm được
-
-2. Cách sử dụng hàm decToBase(string s, int base, int N): giả sử cần biểu diễn số nguyên dưới dạng 5 BYTE
-
- decToBase("15", 16, 8) => 000000000F (do biểu diễn số nguyên 5 BYTE dưới dạng THẬP LỤC PHÂN nên cần cho N = 10)
- 
- decToBase("13", 2, 40) => 0000000000000000000000000000000000001101 (do biểu diễn số nguyên 5 BYTE dưới dạng NHỊ PHÂN nên cần cho N = 40)
-
-3. Sử dụng hàm baseToDec(string s, int base) kết hợp với hàm decToBase:
-
-giả sử đọc được chuỗi "1111" trong file, sau đó cần xuất ra màn hình dưới dạng số nguyên 7 BYTE
-
-int dec = baseToDec("1111", 2);
-
-string res = decToBase(to_string(dec), 16, 14) => 0000000000000F
+Project 2: chương trình hợp ngữ kiểm tra trạng thái đèn trên bàn phím và thực hiện các thao tác sau :
++ Nếu chỉ có đèn CapsLock : nhập 2 số tự nhiên M, N (0 < M, N < 10), xuất ra màn hình một hình
+chữ nhật kích thước MxN (M dòng, N cột) chứa toàn dấu hoa thị ( * ).
++ Nếu chỉ có đèn NumLock : Nhập 2 số tự nhiên 1 chữ số; tính tổng, hiệu, tích, thương và xuất
+kết quả.
++ Nếu có cả 2 đèn trên : Hiển thị giờ của máy ra màn hình.
